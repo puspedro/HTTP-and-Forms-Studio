@@ -2,18 +2,61 @@
 
 <head>
 	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+	<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 	<script>
 		// TODO: create a handler
+	let actionUrl = {
+		"google": "https://www.google.com/search",
+		"duckDuckGo": "https://www.duckduckgo.com/",
+		"bing": "https://www.bing.com/search",
+		"ask": "https://www.ask.com/web"
+	}
+	
+	function setSearchEngine(){
+		const searchEngine = document.querySelector("input[name=engine]:checked");
+		searchForm.setAttribute('action', actionUrl[searchEngine.value])
+	}
+
     window.addEventListener("load", function(){
-        // TODO: register the handler
+		// TODO: register the handler
+		let form = document.getElementById('searchForm');
+		form.addEventListener('submit', function(){
+		let searchBar = document.getElementById('searchBar');
+		let searchEngine = document.querySelector("input[name=engine]:checked");
+		if(!searchBar.value){
+			alert("Enter something to search")
+			event.preventDefault();
+		}else if(!searchEngine){
+			alert("Choose an option to search")
+			event.preventDefault();
+		}else{
+			setSearchEngine();
+		}
+		})
     });
 	</script>
 </head>
 
 <body>
 
-	<form id="searchForm">
-    <!-- TODO: add form elements -->
+	<form id="searchForm" action="">
+	<!-- TODO: add form elements -->
+	<div class="container">
+		<div id="head">Puru's Search Engine</div>
+		<div id="bar">
+			<input type="text" name="q" placeholder="Search here" id="searchBar" size="40">
+		</div>
+		<div id="searchEngine">
+			<label><input type="radio" name="engine" value="google">Google</label>
+			<label><input type="radio" name="engine" value="duckDuckGo">DuckDuckGo</label>
+			<label><input type="radio" name="engine" value="bing">Bing</label>
+			<label><input type="radio" name="engine" value="ask">Ask</label>
+		</div>
+		<div>
+			<button type="submit">Go!</button>
+		</div>
+	</div>
 	</form>
 
 </body>
